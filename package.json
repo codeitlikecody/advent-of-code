@@ -33,6 +33,7 @@
 		"mkdirp": "^1.0.4",
 		"node-localstorage": "^2.2.1",
 		"playwright-chromium": "^1.28.1",
+		"punycode": "^2.3.1",
 		"ts-node": "^10.9.1",
 		"typescript": "^5.3.2"
 	}
