@@ -13,7 +13,24 @@ const DAY = 1;
 // problem url  : https://adventofcode.com/2023/day/1
 
 async function p2023day1_part1(input: string, ...params: any[]) {
-	return "Not implemented";
+	const lines = input.split("\n");
+	let sum = 0;
+	for (const line of lines) {
+		let charOne = "";
+		let charTwo = "";
+		for (const char of line) {
+			if (char >= `0` && char <= `9`) {
+				if (charOne === "") {
+					charOne = char;
+				}
+				charTwo = char;
+			}
+		}
+		sum += Number(charOne) * 10 + Number(charTwo);
+	}
+
+	console.log(lines);
+	return sum;
 }
 
 async function p2023day1_part2(input: string, ...params: any[]) {
@@ -21,8 +38,27 @@ async function p2023day1_part2(input: string, ...params: any[]) {
 }
 
 async function run() {
-	const part1tests: TestCase[] = [];
-	const part2tests: TestCase[] = [];
+	const part1tests: TestCase[] = [
+		{
+			input: `1abc2
+	pqr3stu8vwx
+	a1b2c3d4e5f
+	treb7uchet`,
+			expected: `142`,
+		},
+	];
+	const part2tests: TestCase[] = [
+		{
+			input: `two1nine
+			eightwothree
+			abcone2threexyz
+			xtwone3four
+			4nineeightseven2
+			zoneight234
+			7pqrstsixteen`,
+			expected: `281`,
+		},
+	];
 
 	// Run tests
 	test.beginTests();
@@ -45,7 +81,7 @@ async function run() {
 	const part1Solution = String(await p2023day1_part1(input));
 	const part1After = performance.now();
 
-	const part2Before = performance.now()
+	const part2Before = performance.now();
 	const part2Solution = String(await p2023day1_part2(input));
 	const part2After = performance.now();
 
