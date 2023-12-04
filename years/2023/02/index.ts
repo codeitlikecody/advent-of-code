@@ -13,7 +13,38 @@ const DAY = 2;
 // problem url  : https://adventofcode.com/2023/day/2
 
 async function p2023day2_part1(input: string, ...params: any[]) {
-	return "Not implemented";
+	const lines = input.split("\n");
+	let sum = 0;
+
+	const RED_MAX = 12;
+	const GREEN_MAX = 13;
+	const BLUE_MAX = 14;
+
+	for (const line of lines) {
+		const gameTitle = line.split(":");
+		const games = gameTitle[1].split(";");
+		const gameNumber = gameTitle[0].match(/Game (\d+)/)?.[1];
+
+		let possibleGame = true;
+		// console.log(`Game Number: ${gameNumber}`);
+		for (const game of games) {
+			// console.log(`Selection: ${game}`);
+			const green = Number(game.match(/(\d+) green/)?.[1]);
+			const blue = Number(game.match(/(\d+) blue/)?.[1]);
+			const red = Number(game.match(/(\d+) red/)?.[1]);
+			// console.log(`Green: ${green}`);
+			// console.log(`Blue: ${blue}`);
+			// console.log(`Red: ${red}`);
+			if (red > RED_MAX || green > GREEN_MAX || blue > BLUE_MAX) {
+				possibleGame = false;
+				break;
+			}
+		}
+		if (possibleGame === true) {
+			sum += Number(gameNumber);
+		}
+	}
+	return sum;
 }
 
 async function p2023day2_part2(input: string, ...params: any[]) {
@@ -21,7 +52,16 @@ async function p2023day2_part2(input: string, ...params: any[]) {
 }
 
 async function run() {
-	const part1tests: TestCase[] = [];
+	const part1tests: TestCase[] = [
+		{
+			input: `Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
+			Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue
+			Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red
+			Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red
+			Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green`,
+			expected: `8`,
+		},
+	];
 	const part2tests: TestCase[] = [];
 
 	// Run tests
@@ -45,7 +85,7 @@ async function run() {
 	const part1Solution = String(await p2023day2_part1(input));
 	const part1After = performance.now();
 
-	const part2Before = performance.now()
+	const part2Before = performance.now();
 	const part2Solution = String(await p2023day2_part2(input));
 	const part2After = performance.now();
 
