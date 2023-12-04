@@ -16,34 +16,75 @@ async function p2023day1_part1(input: string, ...params: any[]) {
 	const lines = input.split("\n");
 	let sum = 0;
 	for (const line of lines) {
-		let charOne = "";
-		let charTwo = "";
+		let numOne = "";
+		let numTwo = "";
 		for (const char of line) {
 			if (char >= `0` && char <= `9`) {
-				if (charOne === "") {
-					charOne = char;
+				if (numOne === "") {
+					numOne = char;
 				}
-				charTwo = char;
+				numTwo = char;
 			}
 		}
-		sum += Number(charOne) * 10 + Number(charTwo);
+		sum += Number(numOne) * 10 + Number(numTwo);
+	}
+
+	return sum;
+}
+
+async function p2023day1_part2(input: string, ...params: any[]) {
+	const lines = input.split("\n");
+	let sum = 0;
+	for (const line of lines) {
+		let numOne = "";
+		let numTwo = "";
+		let currentLine = line;
+		while (currentLine.length > 0 && currentLine[0] !== " ") {
+			const char = currentLine[0];
+			if (char !== "" && char >= `0` && char <= `9`) {
+				numTwo = char;
+			} else if (currentLine.startsWith("one")) {
+				numTwo = "1";
+			} else if (currentLine.startsWith("two")) {
+				numTwo = "2";
+			} else if (currentLine.startsWith("three")) {
+				numTwo = "3";
+			} else if (currentLine.startsWith("four")) {
+				numTwo = "4";
+			} else if (currentLine.startsWith("five")) {
+				numTwo = "5";
+			} else if (currentLine.startsWith("six")) {
+				numTwo = "6";
+			} else if (currentLine.startsWith("seven")) {
+				numTwo = "7";
+			} else if (currentLine.startsWith("eight")) {
+				numTwo = "8";
+			} else if (currentLine.startsWith("nine")) {
+				numTwo = "9";
+			} else if (currentLine.startsWith("zero")) {
+				numTwo = "0";
+			}
+
+			if (numOne === "" && numTwo !== "") {
+				numOne = String(Number(numTwo));
+			}
+			currentLine = currentLine.slice(1);
+		}
+
+		sum += Number(numOne) * 10 + Number(numTwo);
 	}
 
 	console.log(lines);
 	return sum;
 }
 
-async function p2023day1_part2(input: string, ...params: any[]) {
-	return "Not implemented";
-}
-
 async function run() {
 	const part1tests: TestCase[] = [
 		{
 			input: `1abc2
-	pqr3stu8vwx
-	a1b2c3d4e5f
-	treb7uchet`,
+			pqr3stu8vwx
+			a1b2c3d4e5f
+			treb7uchet`,
 			expected: `142`,
 		},
 	];
